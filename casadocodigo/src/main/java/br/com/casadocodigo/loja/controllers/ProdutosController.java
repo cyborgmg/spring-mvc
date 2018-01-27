@@ -9,22 +9,28 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.casadocodigo.loja.daos.ProdutoDAO;
+import br.com.casadocodigo.loja.infra.FileSaver;
 import br.com.casadocodigo.loja.models.Produto;
 import br.com.casadocodigo.loja.models.TipoPreco;
 import br.com.casadocodigo.loja.validation.ProdutoValidation;
 
 @Controller
-@RequestMapping("produtos")
+@RequestMapping("/produtos")
 public class ProdutosController {
 	
 	@Autowired(required=true)
     private ProdutoDAO produtoDao;
+	
+	@Autowired
+    private FileSaver fileSaver;
 	
 	@InitBinder
 	public void InitBinder(WebDataBinder binder){
@@ -32,7 +38,7 @@ public class ProdutosController {
 	}
 	
 	@RequestMapping("/form")
-    public ModelAndView form(){
+    public ModelAndView form(Produto produto){
 
         ModelAndView modelAndView = new ModelAndView("produtos/form");
         modelAndView.addObject("tipos", TipoPreco.values());
@@ -41,14 +47,16 @@ public class ProdutosController {
     }
 	
 	@RequestMapping(method=RequestMethod.POST)
-    public ModelAndView gravar(@Valid Produto produto, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+    public ModelAndView gravar(MultipartFile sumario, @Valid Produto produto, BindingResult bindingResult, RedirectAttributes redirectAttributes){
         
 		if(bindingResult.hasErrors()){
-			return form();
+			return form(produto);
 		}
 		
+		String path = fileSaver.write("arquivos-sumario", sumario);
+	    produto.setSumarioPath(path);
+		
         produtoDao.gravar(produto);
-        //return "/produtos/ok";
         
         redirectAttributes.addFlashAttribute("sucesso", "Salvo com sucesso!!");
         
@@ -60,6 +68,14 @@ public class ProdutosController {
 	    List<Produto> produtos = produtoDao.listar();
 	    ModelAndView modelAndView = new ModelAndView("/produtos/lista");
 	    modelAndView.addObject("produtos", produtos);
+	    return modelAndView;
+	}
+	
+	@RequestMapping("/detalhe/{id}")
+	public ModelAndView detalhe(@PathVariable("id") Integer id){
+	    ModelAndView modelAndView = new ModelAndView("/produtos/detalhe");
+	    Produto produto = produtoDao.find(id);
+	    modelAndView.addObject("produto", produto);
 	    return modelAndView;
 	}
 
