@@ -16,27 +16,27 @@
 			rel="publisher"/>
 		<title>Livros de Java, SOA, Android, iPhone, Ruby on Rails e
 			muito mais - Casa do Código</title>
-		<link href="../resources/css/cssbase-min.css"
+		<link href="${contextPath}resources/css/cssbase-min.css"
 			rel="stylesheet" type="text/css" media="all" />
 		<link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700'
 			rel='stylesheet'/>
-		<link href="../resources/css/fonts.css"
+		<link href="${contextPath}resources/css/fonts.css"
 			rel="stylesheet" type="text/css" media="all" />
-		<link href="../resources/css/fontello-ie7.css"
+		<link href="${contextPath}resources/css/fontello-ie7.css"
 			rel="stylesheet" type="text/css" media="all" />
-		<link href="../resources/css/fontello-embedded.css"
+		<link href="${contextPath}resources/css/fontello-embedded.css"
 			rel="stylesheet" type="text/css" media="all" />
-		<link href="../resources/css/fontello.css"
+		<link href="${contextPath}resources/css/fontello.css"
 			rel="stylesheet" type="text/css" media="all" />
-		<link href="../resources/css/style.css"
+		<link href="${contextPath}resources/css/style.css"
 			rel="stylesheet" type="text/css" media="all" />
-		<link href="../resources/css/layout-colors.css"
+		<link href="${contextPath}resources/css/layout-colors.css"
 			rel="stylesheet" type="text/css" media="all" />
-		<link href="../resources/css/responsive-style.css"
+		<link href="${contextPath}resources/css/responsive-style.css"
 			rel="stylesheet" type="text/css" media="all" />
-		<link href="../resources/css/guia-do-programador-style.css" 
+		<link href="${contextPath}resources/css/guia-do-programador-style.css" 
 			rel="stylesheet" type="text/css"  media="all"  />
-	    <link href="../resources/css/produtos.css" 
+	    <link href="${contextPath}resources/css/produtos.css" 
 	    	rel="stylesheet" type="text/css"  media="all"  />
 		<link rel="canonical" href="http://www.casadocodigo.com.br/" />	
 </head>
@@ -115,7 +115,7 @@
 				        <td class="numeric-cell">${carrinhoCompras.getTotal(item) }</td>
 				        <td class="remove-item">
 				            <form action="${s:mvcUrl('CCC#remover').arg(0, item.produto.id).arg(1,item.tipoPreco).build() }" method="post">
-						        <input type="image" src="../resources/imagens/excluir.png" alt="Excluir" title="Excluir" />
+						        <input type="image" src="${contextPath}resources/imagens/excluir.png" alt="Excluir" title="Excluir" />
 						    </form>
 				        </td>
 				    </tr>
