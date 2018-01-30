@@ -53,8 +53,11 @@ public class PagamentoController {
 	public Callable<ModelAndView> finalizar(RedirectAttributes model){
 	    return () -> {
 	        try {
-	            String uri = "http://book-payment.herokuapp.com/payment";
-	            String response = restTemplate.postForObject(uri, new DadosPagamento(carrinho.getTotal()), String.class);
+	            //String uri = "http://book-payment.herokuapp.com/payment";
+	            //String response = restTemplate.postForObject(uri, new DadosPagamento(carrinho.getTotal()), String.class);
+	            
+	            String response = "Compra finalizada com sucesso!";
+	            
 	            model.addFlashAttribute("sucesso", response);
 	            System.out.println(response);
 	            return new ModelAndView("redirect:/produtos");

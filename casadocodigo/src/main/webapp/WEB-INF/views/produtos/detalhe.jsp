@@ -26,7 +26,6 @@
 	  
 	<section class="buy-options clearfix">  
 	 <form:form servletRelativeAction="/casadocodigo/carrinho/add" method="post" cssClass="container">
-	 <%-- <form:form servletRelativeAction="${contextPath}/carrinho/add" method="post" cssClass="container"> --%>
 	 
 	    <ul id="variants" class="clearfix">
 	        <input type="hidden" name="produtoId" value="${produto.id}" />
@@ -39,7 +38,7 @@
 			  </li>
 			</c:forEach>          
 	    </ul>
-	    <button type="submit" class="submit-image icon-basket-alt" alt="Compre Agora" title="Compre Agora${produto.titulo}"></button>
+	    <button type="submit" class="submit-image icon-basket-alt" alt="Compre Agora" title="Compre Agora ${produto.titulo}"></button>
 	    <%-- <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" /> --%>
 	    
 	  </form:form>
